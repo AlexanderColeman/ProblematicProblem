@@ -87,10 +87,10 @@ namespace ProblematicProblem
                     seeList = true;
                     break;
                 }
-                else if (userInput == "no thanks")
+                else if (userInput == "no thanks" || userInput == "no")
                 {
                     Console.WriteLine("Thats ok maybe next time.");
-                    Environment.Exit(0);
+                    break;
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace ProblematicProblem
                 {
                     addToList = true;
                     break;
-                    
+
                 }
 
                 else if (userInput == "no")
@@ -157,7 +157,7 @@ namespace ProblematicProblem
                 {
                     continue;
                 }
-                else if(addAnotherToList == "no")
+                else if (addAnotherToList == "no")
                 {
                     break;
                 }
@@ -171,7 +171,7 @@ namespace ProblematicProblem
 
         public static void ChooseAnActivity(int userAge, string userName)
         {
-           bool cont = true;
+            bool cont = true;
 
             while (cont)
             {
@@ -197,7 +197,7 @@ namespace ProblematicProblem
                 int randomNumber = rng.Next(activities.Count);
                 string randomActivity = activities[randomNumber];
 
-                if (userAge > 21 && randomActivity == "Wine Tasting")
+                if (userAge < 21 && randomActivity == "Wine Tasting")
                 {
                     Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
                     Console.WriteLine("Pick something else!");
@@ -206,10 +206,29 @@ namespace ProblematicProblem
                     randomActivity = activities[randomNumber];
                 }
 
-                Console.Write($"\nAh got it! {userName }, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
-                
-                cont = Console.ReadLine().ToLower() == "keep" ? false : true;
-                    
+                Console.Write("\nAh got it! ");
+                while (true)
+                {
+                    Console.Write($"{userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
+                    string userInput = Console.ReadLine().ToLower();
+
+                    if (userInput == "keep")
+                    {
+                        cont = false;
+                        break;
+                    }
+                    else if (userInput == "redo")
+                    {
+                        cont = true;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nThat was not a valid input");
+                    }
+
+                }
+
             }
 
 
